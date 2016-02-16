@@ -6,7 +6,7 @@
 /*   By: cdrouet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 09:02:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/16 08:23:57 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/16 13:10:24 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_strisdigit(char *str)
 
 	i = -1;
 	while (str[++i])
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '-')
 			return (0);
 	return (1);
 }
