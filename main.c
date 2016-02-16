@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/16 13:26:04 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/16 14:27:32 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	croissant(int *tab, int *nbr)
 					nbop++;
 					if (tab[(*nbr) - 1] > tab[(*nbr) - 2])
 					{
+						ft_printf(" ");
 						swap_a(tab, *nbr);
 						nbop++;
 					}
