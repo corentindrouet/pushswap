@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 13:00:20 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/18 13:56:39 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ typedef struct	s_option
 	char		nbop;
 	char		finalpile;
 	char		etape;
+	char		doublon;
 }				t_option;
 
+int				verif_doublon(t_pile a, int t, char **argv);
 int				test_bon(t_pile tab);
 int				max_tab(t_pile tab);
 int				min_tab(t_pile tab);
