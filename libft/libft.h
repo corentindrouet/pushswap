@@ -6,7 +6,7 @@
 /*   By: cdrouet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:00:06 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/16 08:23:57 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/18 11:30:15 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int					ft_isascii(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_atoi(const char *str);
+long				ft_atol(const char *str);
 int					ft_isdigit(int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
