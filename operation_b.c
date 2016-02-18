@@ -6,54 +6,56 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/16 13:02:48 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/18 09:42:21 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-void	swap_b(int *tab, int taille)
+void	swap_b(t_pile *tab)
 {
-	if (taille <= 1)
+	if (tab->len <= 1)
 		return ;
-	tab[taille - 1] += tab[taille - 2];
-	tab[taille - 2] = tab[taille - 1] - tab[taille - 2];
-	tab[taille - 1] = tab[taille - 1] - tab[taille - 2];
+	tab->pile[tab->len - 1] += tab->pile[tab->len - 2];
+	tab->pile[tab->len - 2] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
+	tab->pile[tab->len - 1] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
 	ft_printf("{cyan}sb{eoc}");
 }
 
-void	push_b(int *tab1, int *t1, int *tab2, int *t2)
+void	push_b(t_pile *tab_a, t_pile *tab_b)
 {
-	if ((*t2) == 0)
+	if ((tab_b->len) == 0)
 		return ;
-	tab1[(*t1)++] = tab2[--(*t2)];
+	tab_a->pile[tab_a->len++] = tab_b->pile[--tab_b->len];
 	ft_printf("{cyan}pb{eoc}");
 }
 
-void	rotate_b(int *tab1, int taille)
+void	rotate_b(t_pile *tab_b)
 {
 	int	tempo;
+	int	i;
 
-	if (taille <= 1)
+	i = tab_b->len;
+	if (tab_b->len <= 1)
 		return ;
-	tempo = tab1[taille - 1];
-	while (--taille > 0)
-		tab1[taille] = tab1[taille - 1];
-	tab1[taille] = tempo;
+	tempo = tab_b->pile[tab_b->len - 1];
+	while (--i > 0)
+		tab_b->pile[i] = tab_b->pile[i - 1];
+	tab_b->pile[i] = tempo;
 	ft_printf("{cyan}rb{eoc}");
 }
 
-void	reverse_rotate_b(int *tab1, int taille)
+void	reverse_rotate_b(t_pile *tab_a)
 {
 	int tempo;
 	int	i;
 
-	if (taille <= 1)
+	if (tab_a->len <= 1)
 		return ;
-	tempo = tab1[0];
+	tempo = tab_a->pile[0];
 	i = -1;
-	while (++i < (taille - 1))
-		tab1[i] = tab1[i + 1];
-	tab1[i] = tempo;
+	while (++i < (tab_a->len - 1))
+		tab_a->pile[i] = tab_a->pile[i + 1];
+	tab_a->pile[i] = tempo;
 	ft_printf("{cyan}rrb{eoc}");
 }

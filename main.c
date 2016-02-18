@@ -6,87 +6,118 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/16 14:27:32 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/18 09:49:02 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-int		test_bon(int *tab, int nbr)
+void	trace(t_pile a, t_pile b)
 {
-	while (--nbr > 0)
-		if (tab[nbr] > tab[nbr - 1])
+	ft_printf("\npile_a : ");
+	while (--a.len >= 0)
+		ft_printf("%d ", a.pile[a.len]);
+	ft_printf("\n");
+	ft_printf("pile_b : ");
+	while (--b.len >= 0)
+		ft_printf("%d ", b.pile[b.len]);
+	ft_printf("\n");
+}
+
+int		test_bon(t_pile tab)
+{
+	while (--tab.len > 0)
+		if (tab.pile[tab.len] > tab.pile[tab.len - 1])
 			return (1);
 	return (0);
 }
 
-void	croissant(int *tab, int *nbr)
+int		max_tab(t_pile tab)
 {
-	int	*b;
-	int	nbb;
-	int	i;
-	int	a;
-	int	nbop;
+	int	max;
 
-	b = (int*)malloc(sizeof(int) * (*nbr));
-	nbb = 0;
-	nbop = 0;
-	while (test_bon(tab, *nbr))
+	max = tab.pile[--tab.len];
+	while (--tab.len >= 0)
+		if (tab.pile[tab.len] > max)
+			max = tab.pile[tab.len];
+	return (max);
+}
+
+int		min_tab(t_pile tab)
+{
+	int	min;
+
+	min = tab.pile[--tab.len];
+	while (--tab.len >= 0)
+		if (tab.pile[tab.len] < min)
+			min = tab.pile[tab.len];
+	return (min);
+}
+
+int 	croissant(t_pile *a, t_pile *b, int	*nbop)
+{
+	if (b->len == 0 && !test_bon(*a))
+		return (1);
+	if (a->len >= 2 && (a->pile[a->len - 1] > a->pile[a->len - 2]))
 	{
-		i = *nbr;
-		while (--i > 0)
-			if (tab[i] > tab[i - 1])
-			{
-				a = (*nbr) - 1;
-				while (a-- > i)
-				{
-					nbop++;
-					push_b(b, &nbb, tab, nbr);
-					ft_printf(" ");
-				}
-				swap_a(tab, *nbr);
-				nbop++;
-				ft_printf(" ");
-				while (nbb)
-				{
-					push_a(tab, nbr, b, &nbb);
-					nbop++;
-					if (tab[(*nbr) - 1] > tab[(*nbr) - 2])
-					{
-						ft_printf(" ");
-						swap_a(tab, *nbr);
-						nbop++;
-					}
-					if (nbb != 0)
-						ft_printf(" ");
-				}
-				ft_printf("\n");
-			}
+		if (a->pile[a->len - 1] == max_tab(*a))
+			rotate_a(a);
+		else
+			swap_a(a);
+		(*nbop)++;
 	}
-	ft_printf("%d\n", nbop);
-	free(b);
+	if (b->len >= 2 && b->pile[b->len - 1] < b->pile[b->len - 2])
+	{
+		if (b->pile[b->len - 1] == min_tab(*b))
+			rotate_b(b);
+		else
+			swap_b(b);
+		(*nbop)++;
+	}
+	if (a->len > 2 && a->pile[0] == min_tab(*a))
+	{
+		reverse_rotate_a(a);
+		(*nbop)++;
+	}
+	if (b->len > 2 && b->pile[0] == max_tab(*b))
+	{
+		reverse_rotate_b(b);
+		(*nbop)++;
+	}
+	if (!test_bon(*a) && b->len != 0)
+		push_a(a, b);
+	else
+		push_b(b, a);
+	(*nbop)++;
+	croissant(a, b, nbop);
+	return (1);
 }
 
 int		main(int argc, char **argv)
 {
-	int		*tab;
-	int		nbr;
+	t_pile	a;
+	t_pile	b;
+	int		nbop;
 
 	if (argc == 1)
 		return (0);
-	nbr = 0;
+	a.len = 0;
 	while (--argc > 0)
 		if (!ft_strisdigit(argv[argc]))
 			ft_printf("Error\n");
 		else
-			nbr++;
-	tab = (int*)malloc(sizeof(int) * nbr);
+			a.len++;
+	a.pile = (int*)malloc(sizeof(int) * a.len);
+	b.pile = (int*)malloc(sizeof(int) * a.len);
+	b.len = 0;
 	argc = -1;
-	while (++argc < nbr)
-		tab[nbr - argc - 1] = ft_atoi(argv[argc + 1]);
-	croissant(tab, &nbr);
+	while (++argc < a.len)
+		a.pile[a.len - argc - 1] = ft_atoi(argv[argc + 1]);
+	nbop = 0;
+	croissant(&a, &b, &nbop);
 	argc = 0;
-	while (argc < nbr)
-		ft_printf("%d ", tab[argc++]);
+	ft_printf("\noperation effectue : %d\n", nbop);
+	while (argc < a.len)
+		ft_printf("%d ", a.pile[argc++]);
 	return (0);
 }
