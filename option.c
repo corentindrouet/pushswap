@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:59:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 13:39:14 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/18 13:49:00 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int			init_option(int nb, char **ar, t_option *op, int *len)
 	while (--nb > 0)
 		if (!ft_strisdigit(ar[nb]))
 		{
-			if (!ft_strcmp(ar[nb], "-c"))
+			if (!ft_strcmp(ar[nb], "-c") || !ft_strcmp(ar[nb], "-C"))
 				op->color++;
-			else if (!ft_strcmp(ar[nb], "-v"))
+			else if (!ft_strcmp(ar[nb], "-v") || !ft_strcmp(ar[nb], "-V"))
 				op->etape++;
-			else if (!ft_strcmp(ar[nb], "-f"))
+			else if (!ft_strcmp(ar[nb], "-f") || !ft_strcmp(ar[nb], "-F"))
 				op->finalpile++;
-			else if (!ft_strcmp(ar[nb], "-o"))
+			else if (!ft_strcmp(ar[nb], "-o") || !ft_strcmp(ar[nb], "-O"))
 				op->nbop++;
 			else
 				return (0);
