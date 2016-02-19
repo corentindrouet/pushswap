@@ -6,11 +6,22 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 08:39:07 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:40:03 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
+
+int		verif_rank(t_pile a, int i)
+{
+	int	j;
+
+	j = 0;
+	while (--a.len >= 0)
+		if (a.pile[a.len] <= i)
+			j++;
+	return (j);
+}
 
 void	swap_a(t_pile *tab, t_option *p)
 {
@@ -26,11 +37,12 @@ void	swap_a(t_pile *tab, t_option *p)
 		ft_printf("sa ");
 }
 
-void	push_a(t_pile *tab_a, t_pile *tab_b, t_option *p)
+void	push_a(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop)
 {
 	if ((tab_b->len) == 0)
 		return ;
 	tab_a->pile[tab_a->len++] = tab_b->pile[--tab_b->len];
+	(*nbop)++;
 	if (p->color)
 		ft_printf("{rouge}pa{eoc} ");
 	else

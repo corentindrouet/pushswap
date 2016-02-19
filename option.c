@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:59:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 13:56:12 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:25:47 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,19 @@ int			init_option(int nb, char **ar, t_option *op, int *len)
 	return (1);
 }
 
-int			verif_doublon(t_pile a, int t, char **argv)
+int			verif_doublon(t_pile a)
 {
 	int	i;
-	int	tempo;
+	int	j;
 
 	i = -1;
-	tempo = ft_atoi(argv[t + 1]);
-	while (++i < t)
-		if (a.pile[i] == tempo)
-			return (0);
+	while (++i < a.len)
+	{
+		j = 0;
+		while ((i + ++j) < a.len)
+			if (a.pile[i] == a.pile[i + j])
+				return (0);
+	}
 	return (1);
 }
 

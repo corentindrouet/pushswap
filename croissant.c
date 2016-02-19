@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 08:38:16 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:48:31 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,18 @@ int			croissant(t_pile *a, t_pile *b, int *nbop, t_option p)
 		rsa(a, &p, nbop, b);
 	if (b->len >= 2 && b->pile[b->len - 1] < b->pile[b->len - 2])
 		rsb(a, &p, nbop, b);
-	if (a->len > 2 && a->pile[0] == min_tab(*a))
+	if (a->len > 2 && (a->pile[0] == min_tab(*a)
+		|| ((a->len % 2) != 0 && a->pile[(a->len / 2)] == max_tab(*a))
+			|| (verif_rank(*a, a->pile[0]) == 2)))
 		rra(a, b, nbop, &p);
-	if (b->len > 2 && b->pile[0] == max_tab(*b))
+	if (b->len > 2 && (b->pile[0] == max_tab(*b)
+		|| ((b->len % 2) != 0 && b->pile[(a->len / 2)] == min_tab(*b))
+			|| (verif_rank(*b, b->pile[0]) == (b->len - 1))))
 		rrb(a, b, nbop, &p);
 	if (!test_bon(*a) && b->len != 0 && p.action == 0)
-		push_a(a, b, &p);
+		push_a(a, b, &p, nbop);
 	else if (test_bon(*a) && p.action == 0)
-		push_b(b, a, &p);
-	(*nbop)++;
+		push_b(b, a, &p, nbop);
 	if (p.etape && p.action == 0)
 		trace(*a, *b, p);
 	p.action = 0;

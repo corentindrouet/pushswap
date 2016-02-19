@@ -6,13 +6,13 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 13:59:40 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:53:09 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-int		test_bon(t_pile tab)
+int			test_bon(t_pile tab)
 {
 	while (--tab.len > 0)
 		if (tab.pile[tab.len] > tab.pile[tab.len - 1])
@@ -20,7 +20,7 @@ int		test_bon(t_pile tab)
 	return (0);
 }
 
-int		max_tab(t_pile tab)
+int			max_tab(t_pile tab)
 {
 	int	max;
 
@@ -31,7 +31,7 @@ int		max_tab(t_pile tab)
 	return (max);
 }
 
-int		min_tab(t_pile tab)
+int			min_tab(t_pile tab)
 {
 	int	min;
 
@@ -42,7 +42,13 @@ int		min_tab(t_pile tab)
 	return (min);
 }
 
-int		main(int argc, char **argv)
+static int	error_msg(char *str)
+{
+	ft_printf(str);
+	return (0);
+}
+
+int			main(int argc, char **argv)
 {
 	t_pile		a;
 	t_pile		b;
@@ -51,26 +57,21 @@ int		main(int argc, char **argv)
 	int			doub;
 
 	if (argc == 1)
-		return (0);
+		return (error_msg("No calcul to be done for this one\n"));
 	a.len = 0;
 	if (!init_option(argc, argv, &p, &(a.len)))
-		ft_printf("Error\n");
+		return (error_msg("Error\n"));
 	a.pile = (int*)malloc(sizeof(int) * a.len);
 	b.pile = (int*)malloc(sizeof(int) * a.len);
 	b.len = 0;
 	argc = -1;
 	doub = 0;
 	while (++argc < a.len)
-	{
-		if (!verif_doublon(a, argc, argv))
-			doub++;
 		a.pile[a.len - argc - 1] = ft_atoi(argv[argc + 1]);
-	}
-	if (doub != 0)
-	{
-		ft_printf("Error\n");
-		return (0);
-	}
+	if (!p.doublon && !verif_doublon(a))
+		return (error_msg("Error\n"));
+	else if (!test_bon(a))
+		return (error_msg("No calcul to be done for this one\n"));
 	nbop = 0;
 	croissant(&a, &b, &nbop, p);
 	argc = 0;
