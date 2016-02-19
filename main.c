@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 09:53:09 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 10:07:00 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int			main(int argc, char **argv)
 	t_pile		b;
 	t_option	p;
 	int			nbop;
-	int			doub;
 
 	if (argc == 1)
 		return (error_msg("No calcul to be done for this one\n"));
@@ -65,16 +64,12 @@ int			main(int argc, char **argv)
 	b.pile = (int*)malloc(sizeof(int) * a.len);
 	b.len = 0;
 	argc = -1;
-	doub = 0;
 	while (++argc < a.len)
 		a.pile[a.len - argc - 1] = ft_atoi(argv[argc + 1]);
-	if (!p.doublon && !verif_doublon(a))
-		return (error_msg("Error\n"));
-	else if (!test_bon(a))
-		return (error_msg("No calcul to be done for this one\n"));
+	if (!verif_doublon(a) || !test_bon(a))
+		return (error_msg((!test_bon(a)) ? "Already done\n" : "Error\n"));
 	nbop = 0;
 	croissant(&a, &b, &nbop, p);
-	argc = 0;
 	if (p.nbop)
 		ft_printf("\noperation effectue : %d", nbop);
 	if (p.finalpile)

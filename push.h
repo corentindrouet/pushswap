@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 09:39:42 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:57:59 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_option
 	char		nbop;
 	char		finalpile;
 	char		etape;
-	char		doublon;
 	char		action;
 }				t_option;
 

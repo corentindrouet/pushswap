@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:59:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 09:25:47 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 09:58:28 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	init_op(t_option *op)
 	op->nbop = 0;
 	op->finalpile = 0;
 	op->etape = 0;
-	op->doublon = 0;
 }
 
 int			init_option(int nb, char **ar, t_option *op, int *len)
@@ -35,8 +34,6 @@ int			init_option(int nb, char **ar, t_option *op, int *len)
 				op->finalpile++;
 			else if (!ft_strcmp(ar[nb], "-o") || !ft_strcmp(ar[nb], "-O"))
 				op->nbop++;
-			else if (!ft_strcmp(ar[nb], "-d") || !ft_strcmp(ar[nb], "-D"))
-				op->doublon++;
 			else
 				return (0);
 		}
