@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 08:30:17 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 08:38:55 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	push_b(t_pile *tab_a, t_pile *tab_b, t_option *p)
 	if ((tab_b->len) == 0)
 		return ;
 	tab_a->pile[tab_a->len++] = tab_b->pile[--tab_b->len];
-	p->action++;
 	if (p->color)
 		ft_printf("{cyan}pb{eoc} ");
 	else

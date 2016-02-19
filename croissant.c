@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 08:29:59 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 08:38:16 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			croissant(t_pile *a, t_pile *b, int *nbop, t_option p)
 	else if (test_bon(*a) && p.action == 0)
 		push_b(b, a, &p);
 	(*nbop)++;
-	if (p.etape)
+	if (p.etape && p.action == 0)
 		trace(*a, *b, p);
 	p.action = 0;
 	croissant(a, b, nbop, p);
