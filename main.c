@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 10:07:00 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 11:51:41 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			min_tab(t_pile tab)
 	return (min);
 }
 
-static int	error_msg(char *str)
+static int	error_msg(char *str, int **a, int **b)
 {
 	ft_printf(str);
 	return (0);

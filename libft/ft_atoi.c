@@ -6,7 +6,7 @@
 /*   By: cdrouet <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 08:56:53 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 11:30:23 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 10:48:45 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			ft_atoi(const char *str)
 long		ft_atol(const char *str)
 {
 	int		i;
-	int		compteur;
+	long	compteur;
 	long	result;
 
 	i = 0;
