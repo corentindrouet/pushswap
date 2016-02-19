@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/18 13:56:39 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/19 08:25:52 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_option
 	char		finalpile;
 	char		etape;
 	char		doublon;
+	char		action;
 }				t_option;
 
 int				verif_doublon(t_pile a, int t, char **argv);
@@ -37,13 +38,13 @@ void			affiche_pile(t_pile p);
 void			trace(t_pile a, t_pile b, t_option p);
 int				init_option(int nb, char **argv, t_option *op, int *len);
 int				croissant(t_pile *a, t_pile *b, int *nbop, t_option p);
-void			swap_a(t_pile *tab, t_option p);
-void			push_a(t_pile *tab_a, t_pile *tab_b, t_option p);
-void			rotate_a(t_pile *tab_a, t_option p);
-void			reverse_rotate_a(t_pile *tab_a, t_option p);
-void			swap_b(t_pile *tab, t_option p);
-void			push_b(t_pile *tab_a, t_pile *tab_b, t_option p);
-void			rotate_b(t_pile *tab_b, t_option p);
-void			reverse_rotate_b(t_pile *tab_a, t_option p);
+void			swap_a(t_pile *tab, t_option *p);
+void			push_a(t_pile *tab_a, t_pile *tab_b, t_option *p);
+void			rotate_a(t_pile *tab_a, t_option *p);
+void			reverse_rotate_a(t_pile *tab_a, t_option *p);
+void			swap_b(t_pile *tab, t_option *p);
+void			push_b(t_pile *tab_a, t_pile *tab_b, t_option *p);
+void			rotate_b(t_pile *tab_b, t_option *p);
+void			reverse_rotate_b(t_pile *tab_a, t_option *p);
 
 #endif
