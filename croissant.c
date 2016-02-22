@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/22 11:09:53 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/22 14:45:48 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
 {
+	if ((a->pile[a->len - 1] > a->pile[a->len - 2])
+		&& (b->pile[b->len - 1] < b->pile[b->len - 2]))
+	{
+		if (a->pile[a->len - 1] == max_tab(*a)
+			&& b->pile[b->len - 1] == min_tab(*b))
+			rotate_a_b(a, b, p);
+	}
 	if (a->pile[a->len - 1] == max_tab(*a))
 		rotate_a(a, p);
 	else
@@ -21,10 +28,6 @@ static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
 	(*nbop)++;
 	if (p->etape)
 		trace(*a, *b, *p);
-}
-
-static void	rsb(t_pile *a, t_option *p, int *nbop, t_pile *b)
-{
 	if (b->pile[b->len - 1] == min_tab(*b))
 		rotate_b(b, p);
 	else
@@ -54,10 +57,9 @@ int			croissant(t_pile *a, t_pile *b, int *nbop, t_option p)
 {
 	if (b->len == 0 && !test_bon(*a))
 		return (1);
-	if (a->len >= 2 && (a->pile[a->len - 1] > a->pile[a->len - 2]))
+	if ((a->len >= 2 && (a->pile[a->len - 1] > a->pile[a->len - 2]))
+		|| (b->len >= 2 && b->pile[b->len - 1] < b->pile[b->len - 2]))
 		rsa(a, &p, nbop, b);
-	if (b->len >= 2 && b->pile[b->len - 1] < b->pile[b->len - 2])
-		rsb(a, &p, nbop, b);
 	if (a->len > 2 && (a->pile[0] == min_tab(*a)
 		|| ((a->len % 2) != 0 && a->pile[(a->len / 2)] == max_tab(*a))
 			|| (verif_rank(*a, a->pile[0]) == 2)))
