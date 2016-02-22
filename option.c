@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 10:59:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 11:43:48 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/22 13:04:39 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			init_option(int nb, char **ar, t_option *op, int *len)
 		}
 		else
 		{
-			if (ft_atol(ar[nb]) > 2147483647 || ft_atol(ar[nb]) < -2147483648)
+			if (!verif_nbr(ar[nb]) || ft_atol(ar[nb]) > 2147483647 || ft_atol(ar[nb]) < -2147483648)
 				return (0);
 			else
 				(*len)++;

@@ -6,11 +6,24 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 10:59:26 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/22 13:05:27 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
+
+int		verif_nbr(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+		if (!ft_isdigit(str[i++]))
+			return (0);
+	return (1);
+}
 
 void	swap_b(t_pile *tab, t_option *p)
 {
