@@ -6,31 +6,39 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/22 14:45:48 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 09:15:09 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
+static int	cond(t_pile a, t_pile b)
+{
+	if (a.len >= 2 && a.pile[a.len - 1] > a.pile[a.len - 2]
+		&& b.len >= 2 && b.pile[b.len - 1] < b.pile[b.len - 2])
+		return (1);
+	else if (a.len >= 2 && a.pile[a.len - 1] > a.pile[a.len - 2])
+		return (2);
+	else if (b.len >= 2 && b.pile[b.len - 1] < b.pile[b.len - 2])
+		return (3);
+	return (0);
+}
+
 static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
 {
-	if ((a->pile[a->len - 1] > a->pile[a->len - 2])
-		&& (b->pile[b->len - 1] < b->pile[b->len - 2]))
-	{
-		if (a->pile[a->len - 1] == max_tab(*a)
-			&& b->pile[b->len - 1] == min_tab(*b))
-			rotate_a_b(a, b, p);
-	}
-	if (a->pile[a->len - 1] == max_tab(*a))
+	if (cond(*a, *b) == 1 && a->pile[a->len - 1] == max_tab(*a)
+		&& b->pile[b->len - 1] == min_tab(*b))
+		rotate_a_b(a, b, p);
+	else if (cond(*a, *b) == 2 && a->pile[a->len - 1] == max_tab(*a))
 		rotate_a(a, p);
-	else
-		swap_a(a, p);
-	(*nbop)++;
-	if (p->etape)
-		trace(*a, *b, *p);
-	if (b->pile[b->len - 1] == min_tab(*b))
+	else if (cond(*a, *b) == 3 && b->pile[b->len - 1] == min_tab(*b))
 		rotate_b(b, p);
-	else
+	else if (cond(*a, *b) == 1 && a->pile[a->len - 1] != max_tab(*a)
+		&& b->pile[b->len - 1] != min_tab(*b))
+		swap_a_b(a, b, p);
+	else if (cond(*a, *b) == 2 && a->pile[a->len - 1] != max_tab(*a))
+		swap_a(a, p);
+	else if (cond(*a, *b) == 3 && b->pile[b->len - 1] != min_tab(*a))
 		swap_b(b, p);
 	(*nbop)++;
 	if (p->etape)
