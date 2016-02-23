@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 09:23:00 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 14:13:48 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ typedef struct	s_option
 	char		action;
 }				t_option;
 
+void			fusion(t_pile *a, t_pile *b, t_option p, int *nbop);
+int				verif_dec(t_pile a);
+void			decroissant(t_pile *a, t_pile *b, int *nbop, t_option p);
 void			swap_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop);
 void			rotate_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop);
 void			reverse_rotate_a_b(t_pile *a, t_pile *b, t_option *p);
