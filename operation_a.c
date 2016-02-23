@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/19 09:40:03 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 09:20:16 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		verif_rank(t_pile a, int i)
 	return (j);
 }
 
-void	swap_a(t_pile *tab, t_option *p)
+void	swap_a(t_pile *tab, t_option *p, int *nbop)
 {
 	if (tab->len <= 1)
 		return ;
@@ -31,6 +31,7 @@ void	swap_a(t_pile *tab, t_option *p)
 	tab->pile[tab->len - 2] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
 	tab->pile[tab->len - 1] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
 	p->action++;
+	(*nbop)++;
 	if (p->color)
 		ft_printf("{rouge}sa{eoc} ");
 	else
@@ -49,7 +50,7 @@ void	push_a(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop)
 		ft_printf("pa ");
 }
 
-void	rotate_a(t_pile *tab_a, t_option *p)
+void	rotate_a(t_pile *tab_a, t_option *p, int *nbop)
 {
 	int	tempo;
 	int	i;
@@ -62,6 +63,7 @@ void	rotate_a(t_pile *tab_a, t_option *p)
 		tab_a->pile[i] = tab_a->pile[i - 1];
 	tab_a->pile[i] = tempo;
 	p->action++;
+	(*nbop)++;
 	if (p->color)
 		ft_printf("{rouge}ra{eoc} ");
 	else

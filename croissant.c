@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 09:15:09 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 09:22:59 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@ static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
 {
 	if (cond(*a, *b) == 1 && a->pile[a->len - 1] == max_tab(*a)
 		&& b->pile[b->len - 1] == min_tab(*b))
-		rotate_a_b(a, b, p);
+		rotate_a_b(a, b, p, nbop);
 	else if (cond(*a, *b) == 2 && a->pile[a->len - 1] == max_tab(*a))
-		rotate_a(a, p);
+		rotate_a(a, p, nbop);
 	else if (cond(*a, *b) == 3 && b->pile[b->len - 1] == min_tab(*b))
-		rotate_b(b, p);
+		rotate_b(b, p, nbop);
 	else if (cond(*a, *b) == 1 && a->pile[a->len - 1] != max_tab(*a)
 		&& b->pile[b->len - 1] != min_tab(*b))
-		swap_a_b(a, b, p);
+		swap_a_b(a, b, p, nbop);
 	else if (cond(*a, *b) == 2 && a->pile[a->len - 1] != max_tab(*a))
-		swap_a(a, p);
+		swap_a(a, p, nbop);
 	else if (cond(*a, *b) == 3 && b->pile[b->len - 1] != min_tab(*a))
-		swap_b(b, p);
-	(*nbop)++;
+		swap_b(b, p, nbop);
 	if (p->etape)
 		trace(*a, *b, *p);
 }

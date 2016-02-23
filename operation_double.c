@@ -6,13 +6,13 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 14:20:21 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/22 14:35:47 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 09:22:01 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-void	swap_a_b(t_pile *a, t_pile *b, t_option *p)
+void	swap_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop)
 {
 	if (a->len > 1)
 	{
@@ -26,6 +26,7 @@ void	swap_a_b(t_pile *a, t_pile *b, t_option *p)
 		b->pile[b->len - 2] = b->pile[b->len - 1] - b->pile[b->len - 2];
 		b->pile[b->len - 1] = b->pile[b->len - 1] - b->pile[b->len - 2];
 	}
+	(*nbop)++;
 	p->action++;
 	if (p->color)
 		ft_printf("{jaune}ss{eoc} ");
@@ -33,7 +34,7 @@ void	swap_a_b(t_pile *a, t_pile *b, t_option *p)
 		ft_printf("ss ");
 }
 
-void	rotate_a_b(t_pile *a, t_pile *b, t_option *p)
+void	rotate_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop)
 {
 	int	tempo;
 	int	i;
@@ -54,6 +55,7 @@ void	rotate_a_b(t_pile *a, t_pile *b, t_option *p)
 			b->pile[i] = b->pile[i - 1];
 		b->pile[i] = tempo;
 	}
+	(*nbop)++;
 	if (p->color)
 		ft_printf("{jaune}rr{eoc} ");
 	else
