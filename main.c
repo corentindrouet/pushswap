@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 14:17:37 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/26 14:27:58 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			main(int argc, char **argv)
 	t_pile		a;
 	t_pile		b;
 	t_option	p;
+	t_all		i;
 	int			nbop;
 
 	if (argc == 1)
@@ -69,11 +70,15 @@ int			main(int argc, char **argv)
 	if (!verif_doublon(a) || !test_bon(a))
 		return (error_msg((!test_bon(a)) ? "Already done\n" : "Error\n"));
 	nbop = 0;
-/*	if (verif_dec(a))
-		decroissant(&a, &b, &nbop, p);
+/*	if (a.len <= 50)
+		croissant(&a, &b, &nbop, p);
 	else
-		croissant(&a, &b, &nbop, p);*/
-	fusion(&a, &b, p, &nbop);
+		fusion(&a, &b, p, &nbop);*/
+	i.a = &a;
+	i.b = &b;
+	i.p = &p;
+	i.nbop = &nbop;
+	tri_a(&i, 0, i.a->len - 1);
 	if (p.nbop)
 		ft_printf("\noperation effectue : %d", nbop);
 	if (p.finalpile)

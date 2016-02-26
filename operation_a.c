@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 09:20:16 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 15:14:30 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	rotate_a(t_pile *tab_a, t_option *p, int *nbop)
 		ft_printf("ra ");
 }
 
-void	reverse_rotate_a(t_pile *tab_a, t_option *p)
+void	reverse_rotate_a(t_pile *tab_a, t_option *p, int *nbop)
 {
 	int tempo;
 	int	i;
@@ -83,6 +83,7 @@ void	reverse_rotate_a(t_pile *tab_a, t_option *p)
 		tab_a->pile[i] = tab_a->pile[i + 1];
 	tab_a->pile[i] = tempo;
 	p->action++;
+	(*nbop)++;
 	if (p->color)
 		ft_printf("{rouge}rra{eoc} ");
 	else

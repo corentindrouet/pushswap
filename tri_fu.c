@@ -6,13 +6,13 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:56:15 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 14:19:27 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/26 11:08:14 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-static int	moitie(t_pile a)
+int			moitie(t_pile a)
 {
 	int		nb;
 	int		i;
@@ -64,6 +64,44 @@ static void	divis(t_pile *a, t_pile *b, t_option p, int *nbop)
 
 void		fusion(t_pile *a, t_pile *b, t_option p, int *nbop)
 {
+	int		c;
+
 	divis(a, b, p, nbop);
-	croissant(a, b, nbop, p);
+	ft_printf("\nok\n");
+	while (!verif_dec(*b) || test_bon(*a))
+	{
+		c = cond(*a, *b);
+		if (c == 1)
+			swap_a_b(a, b, &p, nbop);
+		else if (c == 2)
+			swap_a(a, &p, nbop);
+		else if (c == 3)
+			swap_b(b, &p, nbop);
+		else
+		{
+			if (a->len >= 2 && a->pile[a->len - 1] > a->pile[0]
+				&& b->len >= 2 && b->pile[b->len - 1] < b->pile[0])
+				rotate_a_b(a,b, &p, nbop);
+			else if (a->len >= 2 && a->pile[a->len - 1] > a->pile[0])
+				rotate_a(a, &p, nbop);
+			else if (b->len >= 2 && b->pile[b->len - 1] < b->pile[0])
+				rotate_b(b, &p, nbop);
+			else
+			{
+				if (a->len >= 2 && a->pile[a->len - 1] < a->pile[0]
+					&& b->len >= 2 && b->pile[b->len - 1] > b->pile [0])
+					reverse_rotate_a_b(a, b, &p, nbop);
+				else if (a->len >= 2 && a->pile[a->len - 1] < a->pile[0])
+					reverse_rotate_a(a, &p, nbop);
+				else if (b->len >= 2 && b->pile[b->len - 1] > b->pile[0])
+					reverse_rotate_b(b, &p, nbop);
+				else
+					break ;
+			}
+		}
+		if (p.etape)
+			trace(*a, *b, p);
+	}
+	while (b->len > 0)
+		push_a(a, b, &p, nbop);
 }

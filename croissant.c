@@ -6,13 +6,13 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 13:37:18 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/02/23 15:14:10 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-static int	cond(t_pile a, t_pile b)
+int	cond(t_pile a, t_pile b)
 {
 	if (a.len >= 2 && a.pile[a.len - 1] > a.pile[a.len - 2]
 			&& b.len >= 2 && b.pile[b.len - 1] < b.pile[b.len - 2])
@@ -48,16 +48,14 @@ static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
 
 static void	rra(t_pile *a, t_pile *b, int *nbop, t_option *p)
 {
-	reverse_rotate_a(a, p);
-	(*nbop)++;
+	reverse_rotate_a(a, p, nbop);
 	if (p->etape)
 		trace(*a, *b, *p);
 }
 
 static void	rrb(t_pile *a, t_pile *b, int *nbop, t_option *p)
 {
-	reverse_rotate_b(b, p);
-	(*nbop)++;
+	reverse_rotate_b(b, p, nbop);
 	if (p->etape)
 		trace(*a, *b, *p);
 }
