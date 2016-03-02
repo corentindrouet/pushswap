@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 11:55:31 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 15:02:18 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,13 @@ int			main(int argc, char **argv)
 	a.pile = (int*)malloc(sizeof(int) * a.len);
 	b.pile = (int*)malloc(sizeof(int) * a.len);
 	b.len = 0;
-	argc = -1;
-	while (++argc < a.len)
-		a.pile[a.len - argc - 1] = ft_atoi(argv[argc + 1]);
+	argc = 0;
+	nbop = 0;
+	while ((++argc - nbop) <= a.len)
+		if (ft_strisdigit(argv[argc]))
+			a.pile[a.len - (argc - nbop)] = ft_atoi(argv[argc]);
+		else
+			nbop++;
 	if (!verif_doublon(a) || !test_bon(a))
 		return (error_msg((!test_bon(a)) ? "Already done\n" : "Error\n"));
 	nbop = 0;

@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 13:49:19 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 14:31:42 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	swap_a(t_all *i)
 	if (i->a->len <= 1)
 		return ;
 	i->a->pile[i->a->len - 1] += i->a->pile[i->a->len - 2];
-	i->a->pile[i->a->len - 2] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
-	i->a->pile[i->a->len - 1] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
+	i->a->pile[i->a->len - 2] =
+		i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
+	i->a->pile[i->a->len - 1] =
+		i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
 	i->p->action++;
 	(*(i->nbop))++;
 	if (i->p->color)

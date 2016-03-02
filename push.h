@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 13:43:58 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 14:32:23 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int				min_tab(t_pile tab);
 void			affiche_pile(t_pile p);
 void			trace(t_pile a, t_pile b, t_option p);
 int				init_option(int nb, char **argv, t_option *op, int *len);
-int				croissant(t_all *i);//(t_pile *a, t_pile *b, int *nbop, t_option p);
-void			swap_a(t_all *i);//(t_pile *tab, t_option *p, int *nbop);
+int				croissant(t_all *i);
+void			swap_a(t_all *i);
 void			push_a(t_all *i);
 void			rotate_a(t_all *j);
 void			reverse_rotate_a(t_all *j);
