@@ -6,88 +6,94 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 14:20:21 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 15:13:04 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 13:28:18 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-void	swap_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop)
+void	swap_a_b(t_all *i)
 {
-	if (a->len > 1)
+	if (i->a->len > 1)
 	{
-		a->pile[a->len - 1] += a->pile[a->len - 2];
-		a->pile[a->len - 2] = a->pile[a->len - 1] - a->pile[a->len - 2];
-		a->pile[a->len - 1] = a->pile[a->len - 1] - a->pile[a->len - 2];
+		i->a->pile[i->a->len - 1] += i->a->pile[i->a->len - 2];
+		i->a->pile[i->a->len - 2] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
+		i->a->pile[i->a->len - 1] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
 	}
-	if (a->len > 1)
+	if (i->a->len > 1)
 	{
-		b->pile[b->len - 1] += b->pile[b->len - 2];
-		b->pile[b->len - 2] = b->pile[b->len - 1] - b->pile[b->len - 2];
-		b->pile[b->len - 1] = b->pile[b->len - 1] - b->pile[b->len - 2];
+		i->b->pile[i->b->len - 1] += i->b->pile[i->b->len - 2];
+		i->b->pile[i->b->len - 2] = i->b->pile[i->b->len - 1] - i->b->pile[i->b->len - 2];
+		i->b->pile[i->b->len - 1] = i->b->pile[i->b->len - 1] - i->b->pile[i->b->len - 2];
 	}
-	(*nbop)++;
-	p->action++;
-	if (p->color)
+	(*(i->nbop))++;
+	i->p->action++;
+	if (i->p->color)
 		ft_printf("{jaune}ss{eoc} ");
 	else
 		ft_printf("ss ");
+	if (i->p->etape)
+		trace(*(i->a), *(i->b), *(i->p));
 }
 
-void	rotate_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop)
+void	rotate_a_b(t_all *j)
 {
 	int	tempo;
 	int	i;
 
-	i = a->len;
+	i = j->a->len;
 	if (i > 1)
 	{
-		tempo = a->pile[a->len - 1];
+		tempo = j->a->pile[j->a->len - 1];
 		while (--i > 0)
-			a->pile[i] = a->pile[i - 1];
-		a->pile[i] = tempo;
+			j->a->pile[i] = j->a->pile[i - 1];
+		j->a->pile[i] = tempo;
 	}
-	i = b->len;
+	i = j->b->len;
 	if (i > 1)
 	{
-		tempo = b->pile[b->len - 1];
+		tempo = j->b->pile[j->b->len - 1];
 		while (--i > 0)
-			b->pile[i] = b->pile[i - 1];
-		b->pile[i] = tempo;
+			j->b->pile[i] = j->b->pile[i - 1];
+		j->b->pile[i] = tempo;
 	}
-	(*nbop)++;
-	if (p->color)
+	(*(j->nbop))++;
+	if (j->p->color)
 		ft_printf("{jaune}rr{eoc} ");
 	else
 		ft_printf("rr ");
-	p->action++;
+	j->p->action++;
+	if (j->p->etape)
+		trace(*(j->a), *(j->b), *(j->p));
 }
 
-void	reverse_rotate_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop)
+void	reverse_rotate_a_b(t_all *j)
 {
 	int tempo;
 	int	i;
 
-	if (a->len > 1)
+	if (j->a->len > 1)
 	{
-		tempo = a->pile[0];
+		tempo = j->a->pile[0];
 		i = -1;
-		while (++i < (a->len - 1))
-			a->pile[i] = a->pile[i + 1];
-		a->pile[i] = tempo;
+		while (++i < (j->a->len - 1))
+			j->a->pile[i] = j->a->pile[i + 1];
+		j->a->pile[i] = tempo;
 	}
-	if (b->len > 1)
+	if (j->b->len > 1)
 	{
-		tempo = b->pile[0];
+		tempo = j->b->pile[0];
 		i = -1;
-		while (++i < (b->len - 1))
-			b->pile[i] = b->pile[i + 1];
-		b->pile[i] = tempo;
+		while (++i < (j->b->len - 1))
+			j->b->pile[i] = j->b->pile[i + 1];
+		j->b->pile[i] = tempo;
 	}
-	(*nbop)++;
-	if (p->color)
+	(*(j->nbop))++;
+	if (j->p->color)
 		ft_printf("{jaune}rrr{eoc} ");
 	else
 		ft_printf("rrr ");
-	p->action++;
+	j->p->action++;
+	if (j->p->etape)
+		trace(*(j->a), *(j->b), *(j->p));
 }

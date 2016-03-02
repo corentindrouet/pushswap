@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 11:54:21 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 13:28:11 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ int				moitie_ind(t_pile a, int debut, int fin);
 int				tri_a(t_all *res, int debut, int fin);
 int				moitie(t_pile a);
 int				cond(t_pile a, t_pile b);
-void			fusion(t_pile *a, t_pile *b, t_option p, int *nbop);
 int				verif_dec(t_pile a);
 void			decroissant(t_pile *a, t_pile *b, int *nbop, t_option p);
-void			swap_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop);
-void			rotate_a_b(t_pile *a, t_pile *b, t_option *p, int *nbop);
+void			swap_a_b(t_all *i);
+void			rotate_a_b(t_all *j);
 void			reverse_rotate_a_b(t_pile *a, t_pile *b,
 					t_option *p, int *nbop);
 int				verif_nbr(char *str);
