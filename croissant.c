@@ -6,13 +6,13 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 15:14:10 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 12:00:07 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push.h"
 
-int	cond(t_pile a, t_pile b)
+int			cond(t_pile a, t_pile b)
 {
 	if (a.len >= 2 && a.pile[a.len - 1] > a.pile[a.len - 2]
 			&& b.len >= 2 && b.pile[b.len - 1] < b.pile[b.len - 2])
@@ -24,26 +24,28 @@ int	cond(t_pile a, t_pile b)
 	return (0);
 }
 
-static void	rsa(t_pile *a, t_option *p, int *nbop, t_pile *b)
+static void	rsa(t_all *i)
 {
-	if (cond(*a, *b) == 1 && a->pile[a->len - 1] == max_tab(*a)
-			&& b->pile[b->len - 1] == min_tab(*b))
-		rotate_a_b(a, b, p, nbop);
-	if (cond(*a, *b) == 1 && a->pile[a->len - 1] != max_tab(*a)
-			&& b->pile[b->len - 1] != min_tab(*b))
-		swap_a_b(a, b, p, nbop);
-	if ((cond(*a, *b) == 1 || cond(*a, *b) == 2) && a->pile[a->len - 1] != max_tab(*a)
-		&& a->pile[a->len - 1] < a->pile[0])
-		swap_a(a, p, nbop);
-	if ((cond(*a, *b) == 1 || cond(*a, *b) == 3) && b->pile[b->len - 1] != min_tab(*a)
-		&& b->pile[b->len - 1] > b->pile[0])
-		swap_b(b, p, nbop);
-	if ((cond(*a, *b) == 1 || cond(*a, *b) == 2) && a->pile[a->len - 1] > a->pile[0])
-		rotate_a(a, p, nbop);
-	if ((cond(*a, *b) == 1 || cond(*a, *b) == 3) && b->pile[b->len - 1] < b->pile[0])
-		rotate_b(b, p, nbop);
-	if (p->etape)
-		trace(*a, *b, *p);
+	if (cond(*(i->a), *(i->b)) == 1 && i->a->pile[i->a->len - 1] == max_tab(*(i->a))
+			&& i->b->pile[i->b->len - 1] == min_tab(*(i->b)))
+		rotate_a_b(i->a, i->b, i->p, i->nbop);
+	if (cond(*(i->a), *(i->b)) == 1 && i->a->pile[i->a->len - 1] != max_tab(*(i->a))
+			&& i->b->pile[i->b->len - 1] != min_tab(*(i->b)))
+		swap_a_b(i->a, i->b, i->p, i->nbop);
+	if ((cond(*(i->a), *(i->b)) == 1 || cond(*(i->a), *(i->b)) == 2) && i->a->pile[i->a->len - 1]
+		!= max_tab(*(i->a)) && i->a->pile[i->a->len - 1] < i->a->pile[0])
+		swap_a(i);
+	if ((cond(*(i->a), *(i->b)) == 1 || cond(*(i->a), *(i->b)) == 3) && i->b->pile[i->b->len - 1]
+		!= min_tab(*(i->a)) && i->b->pile[i->b->len - 1] > i->b->pile[0])
+		swap_b(i->b, i->p, i->nbop);
+	if ((cond(*(i->a), *(i->b)) == 1 || cond(*(i->a), *(i->b)) == 2) && i->a->pile[i->a->len - 1]
+		> i->a->pile[0])
+		rotate_a(i->a, i->p, i->nbop);
+	if ((cond(*(i->a), *(i->b)) == 1 || cond(*(i->a), *(i->b)) == 3) && i->b->pile[i->b->len - 1]
+		< i->b->pile[0])
+		rotate_b(i->b, i->p, i->nbop);
+	if (i->p->etape)
+		trace(*(i->a), *(i->b), *(i->p));
 }
 
 static void	rra(t_pile *a, t_pile *b, int *nbop, t_option *p)
@@ -60,26 +62,26 @@ static void	rrb(t_pile *a, t_pile *b, int *nbop, t_option *p)
 		trace(*a, *b, *p);
 }
 
-int			croissant(t_pile *a, t_pile *b, int *nbop, t_option p)
+int			croissant(/*t_pile *a, t_pile *b, int *nbop, t_option p*/t_all *i)
 {
-	while (test_bon(*a) || (!test_bon(*a) && b->len > 0))
+	while (test_bon(*(i->a)) || (!test_bon(*(i->a)) && i->b->len > 0))
 	{
-		if ((a->len >= 2 && (a->pile[a->len - 1] > a->pile[a->len - 2]))
-			|| (b->len >= 2 && b->pile[b->len - 1] < b->pile[b->len - 2]))
-			rsa(a, &p, nbop, b);
-		if (a->len > 2 && (a->pile[0] < a->pile[a->len - 1]))
-			rra(a, b, nbop, &p);
-		if (b->len > 2 && (b->pile[0] == max_tab(*b)
-			|| ((b->len % 2) != 0 && b->pile[(b->len / 2)] == min_tab(*b))
-				|| (verif_rank(*b, b->pile[0]) == (b->len - 1))))
-			rrb(a, b, nbop, &p);
-		if (!test_bon(*a) && b->len != 0 && p.action == 0)
-			push_a(a, b, &p, nbop);
-		else if (test_bon(*a) && p.action == 0)
-			push_b(b, a, &p, nbop);
-		if (p.etape && p.action == 0)
-			trace(*a, *b, p);
-		p.action = 0;
+		if ((i->a->len >= 2 && (i->a->pile[i->a->len - 1] > i->a->pile[i->a->len - 2]))
+			|| (i->b->len >= 2 && i->b->pile[i->b->len - 1] < i->b->pile[i->b->len - 2]))
+			rsa(i);//(a, &p, nbop, b);
+		if (i->a->len > 2 && (i->a->pile[0] < i->a->pile[i->a->len - 1]))
+			rra(i->a, i->b, i->nbop, i->p);
+		if (i->b->len > 2 && (i->b->pile[0] == max_tab(*(i->b))
+			|| ((i->b->len % 2) != 0 && i->b->pile[(i->b->len / 2)] == min_tab(*(i->b)))
+				|| (verif_rank(*(i->b), i->b->pile[0]) == (i->b->len - 1))))
+			rrb(i->a, i->b, i->nbop, i->p);
+		if (!test_bon(*(i->a)) && i->b->len != 0 && i->p->action == 0)
+			push_a(i->a, i->b, i->p, i->nbop);
+		else if (test_bon(*(i->a)) && i->p->action == 0)
+			push_b(i->b, i->a, i->p, i->nbop);
+		if (i->p->etape && i->p->action == 0)
+			trace(*(i->a), *(i->b), *(i->p));
+		i->p->action = 0;
 	}
 	return (1);
 }

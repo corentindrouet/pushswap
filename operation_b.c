@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 15:14:49 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 12:55:25 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ int		verif_nbr(char *str)
 	return (1);
 }
 
-void	swap_b(t_pile *tab, t_option *p, int *nbop)
+void	swap_b(t_all *i)
 {
-	if (tab->len <= 1)
+	if (i->b->len <= 1)
 		return ;
-	tab->pile[tab->len - 1] += tab->pile[tab->len - 2];
-	tab->pile[tab->len - 2] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
-	tab->pile[tab->len - 1] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
-	p->action++;
-	(*nbop)++;
-	if (p->color)
+	i->b->pile[i->b->len - 1] += i->b->pile[i->b->len - 2];
+	i->b->pile[i->b->len - 2] = i->b->pile[i->b->len - 1] - i->b->pile[i->b->len - 2];
+	i->b->pile[i->b->len - 1] = i->b->pile[i->b->len - 1] - i->b->pile[i->b->len - 2];
+	i->p->action++;
+	(*(i->nbop))++;
+	if (i->p->color)
 		ft_printf("{cyan}sb{eoc} ");
 	else
 		ft_printf("sb ");
+	if (i->p->etape)
+		trace(*(i->a), *(i->b), *(i->p));
 }
 
 void	push_b(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop)

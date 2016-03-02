@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/26 11:13:16 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/26 15:48:34 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 11:56:45 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int			moitie_ind(t_pile a, int debut, int fin)
 	int		j;
 
 	i = debut;
-	if (fin - debut <= 2)
-		return (a.pile[fin - debut]);
-	while (i < fin)
+	while (i <= fin)
 	{
 		j = debut;
 		nb = 0;
@@ -39,11 +37,11 @@ int			moitie_ind(t_pile a, int debut, int fin)
 				nb++;
 			j++;
 		}
-		if (nb == (a.len / 2))
+		if (nb == ((fin - debut + 1) / 2))
 			return (a.pile[i]);
 		i++;
 	}
-	return (a.pile[(fin - debut)]);
+	return (a.pile[(debut)]);
 }
 
 static int	pass(t_pile a, int debut, int fin)
@@ -54,50 +52,60 @@ static int	pass(t_pile a, int debut, int fin)
 	return (1);
 }
 
-int		tri_a(t_all *res, int debut, int fin)
+int			tri_a(t_all *res, int debut, int fin)
 {
 	int	base;
 	int	ind;
 	int	i;
 
-
+	if ((fin - debut) == 1)
+		if (!pass(*(res->a), debut, fin))
+			swap_a(res);
 	if (pass(*(res->a), debut, fin))
 		return (1);
 	base = moitie_ind(*(res->a), debut, fin);
-	ft_printf("recur-%d-%d-%d\n", base, debut, fin);
-	rotate_a(res->a, res->p, res->nbop);
-	trace(*(res->a), *(res->b), *(res->p));
 	i = debut;
+	ind = 0;
 	while (i++ <= fin)
 	{
 		if (res->a->pile[res->a->len - 1] < base)
 			push_b(res->b, res->a, res->p, res->nbop);
 		else
-			rotate_a(res->a, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
+		{
+			if (res->a->pile[res->a->len - 1] == base)
+			{
+				push_b(res->b, res->a, res->p, res->nbop);
+				rotate_b(res->b, res->p, res->nbop);
+			}
+			else
+			{
+				rotate_a(res->a, res->p, res->nbop);
+				ind++;
+			}
+		}
 	}
-	while (res->a->pile[res->a->len - 1] != base)
-		rotate_a(res->a, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
-	if (res->a->pile[res->a->len - 1] < base)
-		push_b(res->b, res->a, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
+	if ((fin - debut) != (res->a->len + res->b->len - 1))
+		while (ind-- > 0)
+			reverse_rotate_a(res->a, res->p, res->nbop);
+	reverse_rotate_b(res->b, res->p, res->nbop);
 	while (res->b->len > 0)
 		push_a(res->a, res->b, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
 	ind = search_ind(*(res->a), base);
-	tri_a(res, ind + 1, fin);
-		trace(*(res->a), *(res->b), *(res->p));
+	if (!pass(*(res->a), ind + 1, fin))
+		tri_a(res, ind + 1, fin);
+	if (pass(*(res->a), debut, fin))
+		return (1);
 	i = 0;
 	while (res->a->pile[res->a->len - 1] != base)
 	{
 		rotate_a(res->a, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
 		i++;
 	}
-	tri_a(res, i--, res->a->len - 1);
+	rotate_a(res->a, res->p, res->nbop);
+	i++;
+	if (!pass(*(res->a), debut + i, res->a->len - 1))
+		tri_a(res, debut + i, res->a->len - 1);
 	while (i-- > 0)
 		reverse_rotate_a(res->a, res->p, res->nbop);
-		trace(*(res->a), *(res->b), *(res->p));
 	return (1);
 }

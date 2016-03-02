@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 15:14:30 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 12:55:27 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,69 +23,77 @@ int		verif_rank(t_pile a, int i)
 	return (j);
 }
 
-void	swap_a(t_pile *tab, t_option *p, int *nbop)
+void	swap_a(t_all *i)
 {
-	if (tab->len <= 1)
+	if (i->a->len <= 1)
 		return ;
-	tab->pile[tab->len - 1] += tab->pile[tab->len - 2];
-	tab->pile[tab->len - 2] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
-	tab->pile[tab->len - 1] = tab->pile[tab->len - 1] - tab->pile[tab->len - 2];
-	p->action++;
-	(*nbop)++;
-	if (p->color)
+	i->a->pile[i->a->len - 1] += i->a->pile[i->a->len - 2];
+	i->a->pile[i->a->len - 2] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
+	i->a->pile[i->a->len - 1] = i->a->pile[i->a->len - 1] - i->a->pile[i->a->len - 2];
+	i->p->action++;
+	(*(i->nbop))++;
+	if (i->p->color)
 		ft_printf("{rouge}sa{eoc} ");
 	else
 		ft_printf("sa ");
+	if (i->p->etape)
+		trace(*(i->a), *(i->b), *(i->p));
 }
 
-void	push_a(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop)
+void	push_a(t_all *i)
 {
-	if ((tab_b->len) == 0)
+	if ((i->b->len) == 0)
 		return ;
-	tab_a->pile[tab_a->len++] = tab_b->pile[--tab_b->len];
-	(*nbop)++;
-	if (p->color)
+	i->a->pile[i->a->len++] = i->b->pile[--i->b->len];
+	(*(i->nbop))++;
+	if (i->p->color)
 		ft_printf("{rouge}pa{eoc} ");
 	else
 		ft_printf("pa ");
+	if (i->p->etape)
+		trace(*(i->a), *(i->b), *(i->p));
 }
 
-void	rotate_a(t_pile *tab_a, t_option *p, int *nbop)
+void	rotate_a(t_all *j)
 {
 	int	tempo;
 	int	i;
 
-	i = tab_a->len;
+	i = j->a->len;
 	if (i <= 1)
 		return ;
-	tempo = tab_a->pile[tab_a->len - 1];
-	while (--i > 0)
-		tab_a->pile[i] = tab_a->pile[i - 1];
-	tab_a->pile[i] = tempo;
-	p->action++;
-	(*nbop)++;
-	if (p->color)
+	tempo = j->a->pile[j->a->len - 1];
+	while (--j->i > 0)
+		j->a->pile[i] = j->a->pile[i - 1];
+	j->a->pile[i] = tempo;
+	j->p->action++;
+	(*(j->nbop))++;
+	if (j->p->color)
 		ft_printf("{rouge}ra{eoc} ");
 	else
 		ft_printf("ra ");
+	if (j->p->etape)
+		trace(*(j->a), *(j->b), *(j->p));
 }
 
-void	reverse_rotate_a(t_pile *tab_a, t_option *p, int *nbop)
+void	reverse_rotate_a(t_all *j)
 {
 	int tempo;
 	int	i;
 
-	if (tab_a->len <= 1)
+	if (j->a->len <= 1)
 		return ;
-	tempo = tab_a->pile[0];
+	tempo = j->a->pile[0];
 	i = -1;
-	while (++i < (tab_a->len - 1))
-		tab_a->pile[i] = tab_a->pile[i + 1];
-	tab_a->pile[i] = tempo;
-	p->action++;
-	(*nbop)++;
-	if (p->color)
+	while (++i < (j->a->len - 1))
+		j->a->pile[i] = j->a->pile[i + 1];
+	j->a->pile[i] = tempo;
+	j->p->action++;
+	(*(j->nbop))++;
+	if (j->p->color)
 		ft_printf("{rouge}rra{eoc} ");
 	else
 		ft_printf("rra ");
+	if (j->p->etape)
+		trace(*(j->a), *(j->b), *(j->p));
 }

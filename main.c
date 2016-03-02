@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/26 14:27:58 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 11:55:31 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,14 @@ int			main(int argc, char **argv)
 	if (!verif_doublon(a) || !test_bon(a))
 		return (error_msg((!test_bon(a)) ? "Already done\n" : "Error\n"));
 	nbop = 0;
-/*	if (a.len <= 50)
-		croissant(&a, &b, &nbop, p);
-	else
-		fusion(&a, &b, p, &nbop);*/
 	i.a = &a;
 	i.b = &b;
 	i.p = &p;
 	i.nbop = &nbop;
-	tri_a(&i, 0, i.a->len - 1);
+	if (a.len < 35)
+		croissant(&i);
+	else
+		tri_a(&i, 0, i.a->len - 1);
 	if (p.nbop)
 		ft_printf("\noperation effectue : %d", nbop);
 	if (p.finalpile)
