@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:47:59 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 12:55:27 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 13:49:19 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	rotate_a(t_all *j)
 	if (i <= 1)
 		return ;
 	tempo = j->a->pile[j->a->len - 1];
-	while (--j->i > 0)
+	while (--i > 0)
 		j->a->pile[i] = j->a->pile[i - 1];
 	j->a->pile[i] = tempo;
 	j->p->action++;

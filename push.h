@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 13:28:11 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/02 13:43:58 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int				verif_dec(t_pile a);
 void			decroissant(t_pile *a, t_pile *b, int *nbop, t_option p);
 void			swap_a_b(t_all *i);
 void			rotate_a_b(t_all *j);
-void			reverse_rotate_a_b(t_pile *a, t_pile *b,
-					t_option *p, int *nbop);
+void			reverse_rotate_a_b(t_all *j);
 int				verif_nbr(char *str);
 int				verif_rank(t_pile a, int i);
 int				verif_doublon(t_pile a);
@@ -58,12 +57,12 @@ void			trace(t_pile a, t_pile b, t_option p);
 int				init_option(int nb, char **argv, t_option *op, int *len);
 int				croissant(t_all *i);//(t_pile *a, t_pile *b, int *nbop, t_option p);
 void			swap_a(t_all *i);//(t_pile *tab, t_option *p, int *nbop);
-void			push_a(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop);
-void			rotate_a(t_pile *tab_a, t_option *p, int *nbop);
-void			reverse_rotate_a(t_pile *tab_a, t_option *p, int *nbop);
-void			swap_b(t_pile *tab, t_option *p, int *nbop);
-void			push_b(t_pile *tab_a, t_pile *tab_b, t_option *p, int *nbop);
-void			rotate_b(t_pile *tab_b, t_option *p, int *nbop);
-void			reverse_rotate_b(t_pile *tab_a, t_option *p, int *nbop);
+void			push_a(t_all *i);
+void			rotate_a(t_all *j);
+void			reverse_rotate_a(t_all *j);
+void			swap_b(t_all *i);
+void			push_b(t_all *i);
+void			rotate_b(t_all *j);
+void			reverse_rotate_b(t_all *j);
 
 #endif
