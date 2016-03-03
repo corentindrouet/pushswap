@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 12:49:18 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/02/23 13:09:12 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/03 09:14:09 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,44 @@ int		verif_dec(t_pile a)
 	return (1);
 }
 
-void	decroissant(t_pile *a, t_pile *b, int *nbop, t_option p)
+void	decroissant(t_all *i)
 {
-	while (a->len > 2)
+	while (i->a->len > 2)
 	{
-		push_b(b, a, &p, nbop);
-		if (b->len > 1)
-			rotate_b(b, &p, nbop);
+		push_b(i);
+		if (i->b->len > 1)
+			rotate_b(i);
 	}
-	swap_a(a, &p, nbop);
-	while (b->len > 0)
-		push_a(a, b, &p, nbop);
+	swap_a(i);
+	while (i->b->len > 0)
+		push_a(i);
+}
+
+void	morc_tri_r(t_all *res, int debut, int fin, int base)
+{
+	int	i;
+	int	ind;
+
+	i = debut;
+	ind = 0;
+	while (i++ <= fin)
+		if (res->a->pile[res->a->len - 1] < base)
+			push_b(res);
+		else
+		{
+			if (res->a->pile[res->a->len - 1] == base)
+			{
+				push_b(res);
+				rotate_b(res);
+			}
+			else
+			{
+				rotate_a(res);
+				ind++;
+			}
+		}
+	if ((fin - debut) != (res->a->len + res->b->len - 1))
+		while (ind-- > 0)
+			reverse_rotate_a(res);
+	reverse_rotate_b(res);
 }

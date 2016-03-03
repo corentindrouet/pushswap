@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:48:35 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 14:32:23 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/03 09:15:50 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				tri_a(t_all *res, int debut, int fin);
 int				moitie(t_pile a);
 int				cond(t_pile a, t_pile b);
 int				verif_dec(t_pile a);
-void			decroissant(t_pile *a, t_pile *b, int *nbop, t_option p);
+void			decroissant(t_all *i);
 void			swap_a_b(t_all *i);
 void			rotate_a_b(t_all *j);
 void			reverse_rotate_a_b(t_all *j);
@@ -64,5 +64,6 @@ void			swap_b(t_all *i);
 void			push_b(t_all *i);
 void			rotate_b(t_all *j);
 void			reverse_rotate_b(t_all *j);
+void			morc_tri_r(t_all *res, int debut, int fin, int base);
 
 #endif

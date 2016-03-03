@@ -6,7 +6,7 @@
 #    By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/16 10:18:29 by cdrouet           #+#    #+#              #
-#    Updated: 2016/03/02 11:55:13 by cdrouet          ###   ########.fr        #
+#    Updated: 2016/03/03 08:37:11 by cdrouet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC = main.c \
 	  croissant.c \
 	  operation_double.c \
 	  tri_rapide.c \
+	  decroissant.c \
 
 BIN = $(SRC:.c=.o)
 

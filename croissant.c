@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 12:57:11 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 14:30:46 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/03 08:03:06 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,24 @@ static void	rsa(t_all *i)
 		rotate_b(i);
 }
 
+static void	algo_b(t_all *i)
+{
+	reverse_rotate_b(i);
+	reverse_rotate_b(i);
+	swap_b(i);
+	rotate_b(i);
+	rotate_b(i);
+}
+
+static void	algo_a(t_all *i)
+{
+	reverse_rotate_a(i);
+	reverse_rotate_a(i);
+	swap_a(i);
+	rotate_a(i);
+	rotate_a(i);
+}
+
 int			croissant(t_all *i)
 {
 	while (test_bon(*(i->a)) || (!test_bon(*(i->a)) && i->b->len > 0))
@@ -58,6 +76,10 @@ int			croissant(t_all *i)
 			rsa(i);
 		if (i->a->len > 2 && (i->a->pile[0] < i->a->pile[i->a->len - 1]))
 			reverse_rotate_a(i);
+		if (i->a->len > 4 && i->a->pile[0] < i->a->pile[1])
+			algo_a(i);
+		if (i->b->len > 4 && i->b->pile[0] > i->b->pile[1])
+			algo_b(i);
 		if (i->b->len > 2 && (i->b->pile[0] == max_tab(*(i->b))
 			|| ((i->b->len % 2) != 0
 				&& i->b->pile[(i->b->len / 2)] == min_tab(*(i->b)))

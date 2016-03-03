@@ -6,7 +6,7 @@
 /*   By: cdrouet <cdrouet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/16 08:19:32 by cdrouet           #+#    #+#             */
-/*   Updated: 2016/03/02 15:02:18 by cdrouet          ###   ########.fr       */
+/*   Updated: 2016/03/03 08:42:14 by cdrouet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,9 @@ int			main(int argc, char **argv)
 	i.b = &b;
 	i.p = &p;
 	i.nbop = &nbop;
-	if (a.len < 35)
+	if (verif_dec(*(i.a)) && i.a->len > 4)
+		decroissant(&i);
+	else if (a.len < 35)
 		croissant(&i);
 	else
 		tri_a(&i, 0, i.a->len - 1);
